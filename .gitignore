@@ -1,3 +1,10 @@
+
+# Secrets.js (API KEY)
+src/secret.js
+
+# vsc
+.vscode
+
 # Logs
 logs
 *.log
