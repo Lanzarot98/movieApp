@@ -3,7 +3,8 @@ const headerSection = document.querySelector('#header');
 const trendingPreviewSection = document.querySelector('#trendingPreview');
 const categoriesPreviewSection = document.querySelector('#categoriesPreview');
 const genericSection = document.querySelector('#genericList');
-const movieDetailPage = document.querySelector('#movieDetail');
+const movieDetailSection = document.querySelector('#movieDetail');
+const movieFooter = document.querySelector('#movieFooter');
 
 // List & Containers
 const searchForm = document.querySelector('#searchForm');
@@ -22,6 +23,6 @@ const searchFormBtn = document.querySelector('#searchBtn');
 
 const trendingBtn = document.querySelector('.trendingPreview-btn');
 
-const movieDetailTitle = document.querySelector('.movieDEtail-title');
+const movieDetailTitle = document.querySelector('.movieDetail-title');
 const movieDetailDescription = document.querySelector('.movieDetail-description');
 const movieDetailScore = document.querySelector('.movieDetail-score');
