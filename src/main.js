@@ -13,7 +13,7 @@ const api = axios.create({
 // helpers/Utils
 
 function createMovies(movies, container) {
-    container.innerHTML = '';
+    container.innerHTML = ''; // limpiar el html;
 
     movies.forEach((movie) => {
 
