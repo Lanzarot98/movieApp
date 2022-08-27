@@ -116,11 +116,11 @@ function createMovies(
             // homePage(); //también se puede solucionar usando homePage
             getTrendingMoviesPreview();
             getLikedMovies() // para que se agreguen los likes desde el inicio en trends
+            if(localStorage.liked_movies.length < 3) {
+                favoriteDescription.classList.remove('inactive');
+            } else { favoriteDescription.classList.add('inactive') }
         })
 
-        if(localStorage.liked_movies.length < 3) {
-            favoriteDescription.classList.remove('inactive');
-        } else { favoriteDescription.classList.add('inactive') }
         
         if (lazyLoad) {
             lazyLoader.observe(movieImg);
