@@ -10,13 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles/app.css" />
 
-  <title>MigueMovies</title>
+  <title>🎥 ZoluMovies 🎥</title>
 </head>
 <body>
   <header id="header" class="header-container">
     <span class="header-arrow inactive">&lt;</span>
-    <h1 class="header-title">MigueMovies</h1>
+    <h1 class="header-title">🎥 ZoluMovies 🎥</h1>
     <h1 class="header-title header-title--categoryView inactive">Action</h1>
+    <!-- <select name="language" id="la">            
+      <option value="en">English</option>
+      <option value="es">Spanish</option>
+      <option value="pt-BR">Portuguese Br</option>
+      <option value="fr">French</option>
+  </select> -->
 
     <form id="searchForm" class="header-searchForm">
       <input type="text" placeholder="Search a movie" />
@@ -31,14 +37,15 @@
     </div>
 
     <article class="trendingPreview-movieList">
-      <!-- <div class="movie-container">
-        <img
+      <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading">
+      <!-- <img
           src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
           class="movie-img"
           alt="movieName"
-        />
-      </div>  para tener como referencia de cómo es el html de la imagen-->
-
+        /> para tener como referencia de cómo es el html de la imagen -->
+      </div>
     </article>
   </section>
 
@@ -46,36 +53,40 @@
     <h2 class="categoriesPreview-title">Categories</h2>
 
     <article class="categoriesPreview-list">
-      <!-- <div class="category-container">
-        <h3 id="id28" class="category-title">Romance</h3>
-      </div> -->
+      <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading"></div>
+      <div class="movie-container movie-container--loading">
+      <!-- <h3 id="id28" class="category-title">Romance</h3> -->
+      </div>
+    </article>
+  </section>
 
+  <section id="liked" class="liked-container">
+    <div class="liked-header">
+      <h2 class="liked-title">Favorite movies</h2>
+    </div>
+    <p class="favorite-description inactive">Choose a movie and click on 🤍 to add it to favorites</p>
+    
+    <article class="liked-movieList">
+      <div class="movie-container">
+        <img
+            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+            class="movie-img"
+            alt="movieName"
+          />
+      </div>
     </article>
   </section>
 
   <section id="genericList" class="genericList-container inactive">
-    <div class="movie-container">
-      <img
+    <div class="movie-container movie-container--loading"></div>
+    <div class="movie-container movie-container--loading"></div>
+    <div class="movie-container movie-container--loading">
+    <!-- <img
         src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
         class="movie-img"
         alt="movieName"
-      />
-    </div>
-
-    <div class="movie-container">
-      <img
-        src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-        class="movie-img"
-        alt="movieName"
-      />
-    </div>
-
-    <div class="movie-container">
-      <img
-        src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-        class="movie-img"
-        alt="movieName"
-      />
+      /> -->
     </div>
   </section>
 
@@ -87,45 +98,25 @@
     </p>
 
     <article class="categories-list">
-      <div class="category-container">
-        <h3 id="id28" class="category-title">Romance</h3>
-      </div>
-
-      <div class="category-container">
-        <h3 id="id16" class="category-title">Drama</h3>
-      </div>
-
-      <div class="category-container">
-        <h3 id="id14" class="category-title">Acción</h3>
+      <div class="category-container category-container--loading"></div>
+      <div class="category-container category-container--loading"></div>
+      <div class="category-container category-container--loading">
+      <!-- <h3 id="id28" class="category-title">Romance</h3> -->
       </div>
     </article>
 
     <article class="relatedMovies-container">
-      <h2 class="relatedMovies-title">Películas similares</h2>
+      <h2 class="relatedMovies-title">Similar movies</h2>
 
       <div class="relatedMovies-scrollContainer">
-        <div class="movie-container">
-          <img
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading">
+        <!-- <img
             src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
             class="movie-img"
             alt="movieName"
-          />
-        </div>
-        
-        <div class="movie-container">
-          <img
-            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-            class="movie-img"
-            alt="movieName"
-          />
-        </div>
-        
-        <div class="movie-container">
-          <img
-            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-            class="movie-img"
-            alt="movieName"
-          />
+          /> -->
         </div>
       </div>
     </article>

@@ -1,3 +1,7 @@
+let maxPage;
+let page = 1;
+let infiniteScroll;
+
 let historyPages = [] // creo mi array aquí guardo mi historial de búsquedas
 
 
@@ -18,15 +22,20 @@ trendingBtn.addEventListener('click', () => {
 arrowBtn.addEventListener('click', () => {
     // guardar historial de mis búsquedas:
     // history.back(); // no funciona puesto que el back es otra página web me devuelve a esa página web y esa no es la idea
-    historyPages.pop() // cada vez que presione la flecha me elimina entonces el último que se agregó
-    valueToShow = historyPages[historyPages.length-1]
-    searchFormInput.value = valueToShow;
-    if (historyPages.length>0) {
-        location.hash = '#search=' + historyPages[historyPages.length-1];
+    if (location.hash.startsWith('#search=')) {
+        historyPages.pop() // cada vez que presione la flecha me elimina entonces el último que se agregó
+        valueToShow = historyPages[historyPages.length-1]
+        searchFormInput.value = valueToShow;
+        if (historyPages.length>0) {
+            location.hash = '#search=' + historyPages[historyPages.length-1];
+        } else {
+            location.hash = '#home'
+            searchFormInput.value = '';
+        };
     } else {
-        location.hash = '#home'
-        searchFormInput.value = '';
-    };
+        history.back();
+    }
+
     // location.hash = '#home'; // esto me devuelve de una al home
 });
 
@@ -34,9 +43,15 @@ arrowBtn.addEventListener('click', () => {
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
+window.addEventListener('scroll', infiniteScroll, false); // para hacer scroll infinito
 
 function navigator() {
     console.log({location});
+
+    if (infiniteScroll) {
+        window.removeEventListener('scroll', infiniteScroll, {passive: false});
+        infiniteScroll = undefined;
+    }
 
     if (location.hash.startsWith('#trends')) {
         trendsPage()
@@ -49,10 +64,13 @@ function navigator() {
     } else {
         homePage();
     }
-    window.scrollTo(0, 0); // este también funciona
+    // window.scrollTo(0, 0); // este también funciona
     // o este para que cuando vayamos a una categoría o sección de nuestra página haga scroll hasta arriba automáticamente
     // document.body.scrollTop = 0
-    // document.documentElement.scrollTop = 0;
+    document.documentElement.scrollTop = 0; // este es el que me funcionó mejor
+    if (infiniteScroll) {
+        window.addEventListener('scroll', infiniteScroll, {passive: false});
+    }
 }
 
 
@@ -68,6 +86,7 @@ function homePage() {
     searchForm.classList.remove('inactive');
 
     trendingPreviewSection.classList.remove('inactive');
+    likedMoviesSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
@@ -76,6 +95,7 @@ function homePage() {
 
     getTrendingMoviesPreview();
     getCategoriesPreview();
+    getLikedMovies();
 }
 
 function categoriesPage() {
@@ -91,6 +111,7 @@ function categoriesPage() {
 
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
     movieFooter.classList.add('inactive');
@@ -102,6 +123,8 @@ function categoriesPage() {
     headerCategoryTitle.innerHTML = categoryNameFixed;
     getMoviesByCategory(categoryId);
 
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId);
+    
 }
 
 function movieDetailsPage() {
@@ -117,6 +140,7 @@ function movieDetailsPage() {
 
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedMoviesSection.classList.add('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.remove('inactive');
     movieFooter.classList.add('inactive');
@@ -124,6 +148,7 @@ function movieDetailsPage() {
     // => ['#movie', 'idDelMovie'] así es como lo separaría gracias al split
     const [_, movieId] = location.hash.split('=') 
     getMovieById(movieId);
+    
 
 }
 
@@ -139,6 +164,7 @@ function searchPage() {
 
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
     movieFooter.classList.add('inactive');
@@ -147,6 +173,7 @@ function searchPage() {
     const [_, query] = location.hash.split('=') 
     getMoviesBySearch(query);
 
+    infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 
 function trendsPage() {
@@ -162,6 +189,7 @@ function trendsPage() {
 
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
     movieFooter.classList.add('inactive');
@@ -169,6 +197,8 @@ function trendsPage() {
     headerCategoryTitle.innerHTML = 'Trends';
 
     getTrendingMovies();
+
+    infiniteScroll = getPaginatedTrendingMovies; // es un atajo de esta función
     
 }
 
