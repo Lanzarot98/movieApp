@@ -1,5 +1,5 @@
 // const { id } = require("date-fns/locale");
-
+// data
 const api = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
     headers: {
@@ -9,6 +9,48 @@ const api = axios.create({
         'api_key': API_KEY,
     },
 });
+
+// intento fallido de lenguajes
+// let lang = 'en';
+// const language = document.querySelector('#la');
+
+// language.addEventListener('click', () => {
+//     lang = language.value;
+//     homePage();
+// })
+
+// guardar películas en LocalStorage
+function likedMoviesList() {
+    const item = JSON.parse(localStorage.getItem('liked_movies'));
+    let movies;
+    if(item) {
+        movies = item;
+    } else {
+        movies = {};
+    }
+    return movies;
+}
+
+function likeMovie(movie) {
+    // llamar movie.id
+    const likedMovies = likedMoviesList();
+
+    console.log(likedMovies);
+    if (likedMovies[movie.id]) {
+        
+        likedMovies[movie.id] = undefined;
+        //removerla de localStorage
+    } else {
+        // agregar la movie a LS
+        likedMovies[movie.id] = movie;
+    }
+    localStorage.setItem('liked_movies', JSON.stringify(likedMovies));
+    
+    // getTrendingMoviesPreview();
+    // getLikedMovies();
+}
+
+
 
 // helpers/Utils
 
@@ -41,9 +83,6 @@ function createMovies(
 
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');
-        movieContainer.addEventListener('click', () => {
-            location.hash = `#movie=${movie.id}`;
-        });
 
         const movieImg = document.createElement('img');
         movieImg.classList.add('movie-img');
@@ -52,18 +91,43 @@ function createMovies(
             lazyLoad ? 'data-img' : 'src', // atributo para implementar el lazyLoading
             `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
         );
-            
+
+        movieImg.addEventListener('click', () => { // aquí es movieImg para que se concentre solo en la imagen
+            location.hash = `#movie=${movie.id}`;
+        }); 
+
         // seleccionar que imagen mostrar cuando no cargue correctamente. "https://i.ibb.co/dKGRLmx/fposter-small-wall-texture-product-750x1000.jpg"
         movieImg.addEventListener('error', () => {
             movieImg.setAttribute('src',
             `https://i.ibb.co/dKGRLmx/fposter-small-wall-texture-product-750x1000.jpg`);
         });
+
+        const movieBtn = document.createElement('button');
+        movieBtn.classList.add('movie-btn');
+
+        // condicional: si la movie esta en LS agrego la clase:
+        likedMoviesList()[movie.id] && movieBtn.classList.add('movie-btn--liked');
+
+        movieBtn.addEventListener('click', () => {
+            movieBtn.classList.toggle('movie-btn--liked'); // que agregue o quite la clase movie-btn--liked
+
+            // deberíamos agregar la película en Local Storage
+            likeMovie(movie);
+            // homePage(); //también se puede solucionar usando homePage
+            getTrendingMoviesPreview();
+            getLikedMovies() // para que se agreguen los likes desde el inicio en trends
+        })
+
+        if(localStorage.liked_movies.length < 3) {
+            favoriteDescription.classList.remove('inactive');
+        } else { favoriteDescription.classList.add('inactive') }
         
         if (lazyLoad) {
             lazyLoader.observe(movieImg);
         }
 
         movieContainer.appendChild(movieImg);
+        movieContainer.appendChild(movieBtn);
         container.appendChild(movieContainer); // de cada iteración de nuestras películas vamos a estar agregando una nueva película dentro de nuestro contenedor
     });
 }
@@ -265,7 +329,24 @@ async function getRelatedMoviesId(id) {
     createMovies(relatedMovies, relatedMoviesContainer);
 }
 
+function getLikedMovies() {
+    const likedMovies = likedMoviesList(); // llama al objeto
 
+    // uso del Object.value:
+    // {keys: 'values', keys: 'values',}
+    // ['value', 'value']
+    const moviesArray = Object.values(likedMovies)
+
+    createMovies(
+        moviesArray, 
+        likedMoviesListArticle, 
+        {
+            lazyLoad: true, 
+            clean: true, 
+        });
+
+    console.log(likedMovies);
+}
 
 
 

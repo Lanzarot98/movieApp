@@ -94,6 +94,14 @@ button {
   cursor: pointer;
 }
 
+.favorite-description {
+  font-size: 14px;
+  
+  color: var(--red-light);
+  margin-top: 82px;
+  padding: 0 24px;
+}
+
 /* Si no existe una imagen: */
 .movie-img--null {
   display: block;
@@ -113,23 +121,27 @@ button {
 
 
 /* Shared */
-.header-container, .trendingPreview-header, .categoriesPreview-container {
+.header-container, .trendingPreview-header, .categoriesPreview-container, .liked-header {
   padding: 0 24px;
   justify-items: center;
   align-content: center;
   /* display: grid; */
 }
 
-.trendingPreview-container, .categoriesPreview-container, footer {
+.trendingPreview-container, .categoriesPreview-container, .liked-container, footer {
   margin-top: 48px;
 }
 
-.trendingPreview-header, .categoriesPreview-title {
+
+
+.trendingPreview-header, .categoriesPreview-title,
+ .liked-header { 
   margin-bottom: 24px;
 }
 
 .movie-container {
   cursor: pointer;
+  position: relative;
 }
 .movie-container--loading {
   background: var(--purple-medium-3);
@@ -156,6 +168,29 @@ button {
 
 .movie-img {
   border-radius: 8px;
+}
+
+.movie-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  padding: 0;
+  margin: 0;
+}
+/* insertar el emoji */
+.movie-btn::before { 
+  content: '🤍';
+  /* font-size: 13px; */
+}
+.movie-btn--liked {
+  background-color: var(--purple-light-2);
+  box-shadow: 0px 0px 10px 2px var(--red-light);
+}
+.movie-btn--liked::before {
+  content: '❤️';
 }
 
 .categoriesPreview-list, .categories-list {
@@ -240,7 +275,8 @@ button {
 
 
 /* Trending */
-.trendingPreview-header {
+.trendingPreview-header, 
+.liked-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -252,7 +288,8 @@ button {
   width: 72px;
 }
 
-.trendingPreview-movieList {
+.trendingPreview-movieList,
+.liked-movieList {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
@@ -261,12 +298,14 @@ button {
   padding-bottom: 16px;
 }
 
-.trendingPreview-movieList .movie-container {
+.trendingPreview-movieList .movie-container,
+.liked-movieList .movie-container{
   display: inline-block;
   margin-right: 8px;
 }
 
-.trendingPreview-movieList .movie-container .movie-img {
+.trendingPreview-movieList .movie-container .movie-img,
+.liked-movieList .movie-container .movie-img {
   height: 225px;
   min-height: 225px;
   max-height: 225px;
@@ -501,7 +540,8 @@ footer {
   }
   .header-title {
   margin-bottom: 16px;
-  font-size: 2.5em;
+  font-size: 2em;
+  text-align: center;
   }
   .relatedMovies-scrollContainer .movie-img {
     width: 74px;
@@ -510,6 +550,12 @@ footer {
     height: 154.5px;
     min-height: 143.5px;
     max-height: 187.5px;
+  }
+  .favorite-description {
+    font-size: 14px;
+    text-align: center;
+    color: var(--red-light);
+    margin-top: 82px;
   }
 
 }
