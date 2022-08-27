@@ -91,7 +91,7 @@ function homePage() {
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
     movieFooter.classList.remove('inactive');
-    
+    favoriteDescription.classList.remove('inactive');
 
     getTrendingMoviesPreview();
     getCategoriesPreview();

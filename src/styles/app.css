@@ -487,7 +487,7 @@ footer {
 }
 
 @media (max-width: 740px){
-  
+  /* * { box-sizing: border-box; } */
   body {
     /* width: 330px !important; */
     background-color: var(--black-semiDark);
@@ -497,6 +497,7 @@ footer {
     font-size: 16px;
     /* margin: auto;
     padding: 0; */
+    
   }
   h3 {
     font-size: 12px;
@@ -518,8 +519,8 @@ footer {
     z-index: 1;
     position: absolute;
     background-color: var(--black);
-    width: 270px;
-    left: 50px;
+    width: auto;
+    /* left: 50px; */
   }
   .header-container--long {
     background-size: contain;
