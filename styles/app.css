@@ -387,7 +387,7 @@ button {
 }
 
 .genericList-container .movie-img {
-  width: 60%;
+  width: 94%;
   min-height: 30em;
 }
 
@@ -501,7 +501,7 @@ footer {
     width: 100%;
   }
   .movie-btn {
-    right: 22%;
+    right: 4%;
   }
 }
 
