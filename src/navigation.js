@@ -91,11 +91,14 @@ function homePage() {
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
     movieFooter.classList.remove('inactive');
-    favoriteDescription.classList.remove('inactive');
+    
 
     getTrendingMoviesPreview();
     getCategoriesPreview();
     getLikedMovies();
+    if(localStorage.liked_movies.length < 3) {
+        favoriteDescription.classList.remove('inactive');
+    } else { favoriteDescription.classList.add('inactive') }
 }
 
 function categoriesPage() {
